@@ -1,15 +1,14 @@
 <template>
-  <hello-world />
+  <div>
+    <!-- 占位符 -->
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
-
 export default {
-  name: "Home",
-
-  components: {
-    HelloWorld,
-  },
-};
+  name: 'Home',
+}
 </script>
+
+<style lang="scss"></style>

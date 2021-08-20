@@ -5,5 +5,5 @@
   "htmlWhitespaceSensitivity": "ignore",
   "arrowParens": "avoid",
   "jsxBracketSameLine": false,
-  "printWidth": 120
+  "printWidth": 100
 }

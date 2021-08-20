@@ -1,30 +1,48 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-Vue.use(VueRouter);
+const Home = () => import('views/Home')
+const FuncBar = () => import('views/FuncBar')
+const Timeline = () => import('views/Timeline')
+const HomePage = () => import('views/HomePage')
+const About = () => import('views/About')
+const Archive = () => import('views/Archive')
+const FriendLink = () => import('views/FriendLink')
+// const HomePage = () => import('components/homepage/HomePage')
+// const Navbar = () => import('components/header/Navbar')
+
+Vue.use(VueRouter)
+
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
+    path: '/',
     component: Home,
+    // 子路由
+    children: [
+      {
+        path: '',
+        component: FuncBar,
+        children: [
+          { path: '', components: HomePage },
+          { path: '/timeline', components: Timeline },
+          { path: '/about', components: About },
+          { path: '/archive', components: Archive },
+          { path: '/friendlink', components: FriendLink },
+        ],
+      },
+    ],
   },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
-];
+]
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes,
-});
+})
 
-export default router;
+export default router
